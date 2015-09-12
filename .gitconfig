@@ -1,0 +1,5 @@
+[user]
+        name = <name> <surname>
+        email = <email>@<domain>.<tld>
+[push]
+        default = simple
