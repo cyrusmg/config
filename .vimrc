@@ -2,8 +2,8 @@ syntax on
 set ai                  " autoindent
 set si                  " smartindent
 set cindent             " do c-style indenting
-set tabstop=8           " tab spacing (settings below are just to unify it)
-set softtabstop=8       " unify
+set tabstop=4           " tab spacing (settings below are just to unify it)
+set softtabstop=4       " unify
 set shiftwidth=2        " indent by 2
 set expandtab           " NO tabs please!
 set nowrap              " do not wrap lines
@@ -29,3 +29,21 @@ set nocp " non vi compatible mode
 filetype plugin on " enable plugins
 
 hi Search cterm=NONE ctermfg=black ctermbg=yellow
+
+
+function! Chomp(str)
+  return substitute(a:str, '\n$', '', '')
+endfunction
+
+function! DmenuOpen(cmd)
+  let fname = Chomp(system("git ls-files | dmenu -i -l 20 -p " . a:cmd))
+  if empty(fname)
+    return
+  endif
+  execute a:cmd . " " . fname
+endfunction
+
+" use ctrl-t to open file in a new tab
+" use ctrl-f to open file in current buffer
+map <c-t> :call DmenuOpen("tabe")<cr>
+map <c-f> :call DmenuOpen("e")<cr>

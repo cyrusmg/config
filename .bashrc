@@ -55,3 +55,6 @@ alias ..='cd ..'
 
 export PATH="${HOME}/.gem/ruby/2.2.0/bin:${PATH}"
 export PATH="${HOME}/.bin/:${PATH}"
+
+export CXX=clang++
+export CC=clang
