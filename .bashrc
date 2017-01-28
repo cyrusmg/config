@@ -30,7 +30,7 @@ if (( UID != 0 )); then
   alias poweroff='systemctl poweroff'
   alias shutdown='systemctl poweroff'
   alias suspend='systemctl suspend'
-  alias update='sudo pacman -Su'
+  alias update='sudo pacman -Syu'
 fi
 
 alias l='ls --color=auto'
@@ -53,7 +53,7 @@ alias :x=' exit'
 alias cd..='cd ..'
 alias ..='cd ..'
 
-export PATH="${HOME}/.gem/ruby/2.2.0/bin:${PATH}"
+export PATH="${HOME}/.gem/ruby/2.3.0/bin:${PATH}"
 export PATH="${HOME}/.bin/:${PATH}"
 
 export CXX=clang++
