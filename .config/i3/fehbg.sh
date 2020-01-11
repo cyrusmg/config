@@ -1,2 +1,2 @@
 #!/bin/sh
-feh  --bg-fill ~/pictures/backgrounds/world_map.jpg 
+feh --bg-fill ~/pictures/backgrounds/countries_visited.png

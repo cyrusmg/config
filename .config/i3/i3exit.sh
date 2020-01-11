@@ -1,6 +1,6 @@
 #!/bin/sh
 lock() {
-    i3lock -i ~/pictures/backgrounds/background-bsod.png
+  i3lock -t -i ~/pictures/backgrounds/gandia_playa.png
 }
 
 case "$1" in

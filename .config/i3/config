@@ -5,8 +5,7 @@ set $mod Mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 #font pango:monospace 8
-font pango:DejaVu Sans Mono, Icons 8, Awesome 8
-
+font pango:DejaVu Sans Mono
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -22,8 +21,12 @@ font pango:DejaVu Sans Mono, Icons 8, Awesome 8
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# Automatically switch focus when mouse moves
+focus_follows_mouse no
+
 # start a terminal
-bindsym $mod+Return exec xterm -fg orange -bg black
+bindsym $mod+Shift+Return exec xterm -fa "DejaVu Sans Mono" -fs 10
+bindsym $mod+Return exec xterm -fa "DejaVu Sans Mono" -fs 10 -fg orange -bg black
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -95,7 +98,6 @@ bindsym $mod+F6 workspace 6
 bindsym $mod+F7 workspace 7
 bindsym $mod+F8 workspace 8
 bindsym $mod+F9 workspace 9
-bindsym $mod+F0 workspace 10
 
 # move focused container to workspace
 bindsym $mod+Shift+F1 move container to workspace 1; workspace 1
@@ -107,7 +109,12 @@ bindsym $mod+Shift+F6 move container to workspace 6; workspace 6
 bindsym $mod+Shift+F7 move container to workspace 7; workspace 7
 bindsym $mod+Shift+F8 move container to workspace 8; workspace 8
 bindsym $mod+Shift+F9 move container to workspace 9; workspace 9
-bindsym $mod+Shift+F0 move container to workspace 10; workspace 10
+
+# move current workspace across monitors
+bindsym $mod+Control+Left move workspace to output left
+bindsym $mod+Control+Down move workspace to output down
+bindsym $mod+Control+Up move workspace to output up
+bindsym $mod+Control+Right move workspace to output right
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -145,8 +152,6 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-#        status_command i3status -c ~/.config/i3/i3status.conf | ~/src/github/i3-weather/weather.py 14979 --unit c --wrap-i3-status --format "{city}: {text}, {temp}°{unit_temperature}" --position=0
-#        status_command i3status -c ~/.config/i3/i3status.conf
         status_command i3blocks -c ~/.config/i3/i3blocks.conf
 }
 
@@ -155,15 +160,23 @@ bar {
 exec --no-startup-id "devmon --no-gui"
 exec --no-startup-id sh ~/.config/i3/fehbg.sh
 exec --no-startup-id redshift -l 52.056736:1.148220 &
+exec --no-startup-id blueman-applet &
+exec --no-startup-id dunst &
+exec --no-startup-id nm-applet &
+
+# Add this to ~/.xinitrc
+# systemctl --user import-environment DISPLAY
+# and run this:
+# systemctl --user start dunst && systemctl --user enable dunst
 
 # Volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && pkill -RTMIN+1 i3blocks
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && pkill -RTMIN+1 i3blocks
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && pkill -RTMIN+10 i3blocks && notify-send -t 750 -u low "♪ $(~/src/github/i3blocks-contrib/volume/volume)"
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && pkill -RTMIN+10 i3blocks && notify-send -t 750 -u low "♪ $(~/src/github/i3blocks-contrib/volume/volume)"
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+10 i3blocks
 
 # Brightness
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec ruby ~/.bin/brightness.rb brighter # increase screen brightness
+bindsym XF86MonBrightnessDown exec ruby ~/.bin/brightness.rb darker # decrease screen brightness
 
 #Media player
 bindsym XF86AudioPlay exec ~/.bin/i3-mpc toggle
@@ -175,19 +188,23 @@ bindsym XF86AudioPrev exec ~/.bin/i3-mpc prev
 bindsym XF86TouchpadToggle exec ~/.bin/toggletouchpad.sh # toggle touchpad
 
 #Printscreen
-bindsym Print exec scrot -e 'mv $f ~/pictures/screenshots'
+bindsym Print exec scrot -e 'mv $f ~/pictures/screenshots' --focused && notify-send "Screenshot done!"
+bindsym Shift+Print --release exec scrot -e 'mv $f ~/pictures/screenshots' --select
 
 #Browser
 bindsym $mod+b exec --no-startup-id opera
 
 #Second screen
-bindsym $mod+m         exec xrandr --output HDMI1 --off
-bindsym $mod+shift+m   exec xrandr --output HDMI1 --auto --left-of LVDS1
-bindsym $mod+n         exec xrandr --output VGA1 --off
-bindsym $mod+shift+n   exec xrandr --output VGA1 --auto --left-of LVDS1
+bindsym $mod+m         exec xrandr --output HDMI2 --off --output eDP1 --auto
+bindsym $mod+shift+m   exec xrandr --output HDMI2 --auto --left-of eDP1 --output eDP1 --auto
+bindsym $mod+n         exec xrandr --output VGA1 --off --output eDP1 --auto
+bindsym $mod+shift+n   exec xrandr --output VGA1 --auto --left-of eDP1 --output eDP1 --auto
 
 #VirtualBox
 for_window [title="VirtualBox"] border pixel 1
+
+for_window [instance="skype" title="^.*?(?<!Skype™)$"] floating disable
+for_window [instance="skype" title="Skype™|Call with|File Transfers"] floating disable
 
 # switch to next/previous workspace (left/right)
 bindsym $mod+z workspace prev
@@ -209,4 +226,4 @@ mode "$mode_system" {
 }
 bindsym $mod+c mode "$mode_system"
 
-bindsym $mod+s exec ~/.bin/passmenu
+bindsym $mod+s exec passmenu

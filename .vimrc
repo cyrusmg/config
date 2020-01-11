@@ -1,4 +1,6 @@
 syntax on
+colo desert
+
 set ai                  " autoindent
 set si                  " smartindent
 set cindent             " do c-style indenting
@@ -49,20 +51,4 @@ endfunction
 map <c-t> :call DmenuOpen("tabe")<cr>
 map <c-f> :call DmenuOpen("e")<cr>
 
-execute pathogen#infect()
-
-"Disable default bindings
-let g:tsuquyomi_disable_default_mappings = 1
-
-"Show method signatures
-let g:tsuquyomi_completion_detail = 1 
-
-autocmd FileType typescript setlocal completeopt+=preview
-
-" Ctrl + <Space> to show Intellisense
-inoremap <C-@> <C-x><C-o>
-
-" Jump to definition
-map <buffer> <C-]> <Plug>(TsuquyomiDefinition)
-
-autocmd FileType typescript nmap <buffer> <Leader>e <Plug>(TsuquyomiRenameSymbol)
+" execute pathogen#infect()
