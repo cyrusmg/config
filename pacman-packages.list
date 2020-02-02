@@ -45,6 +45,7 @@ logrotate
 lsof
 mc
 mkinitcpio
+mlocate
 mplayer
 network-manager-applet
 networkmanager
@@ -62,6 +63,7 @@ openssl
 openvpn
 pass
 pavucontrol
+pdftk
 pinentry
 pulseaudio
 pulseaudio-bluetooth

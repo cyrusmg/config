@@ -1,0 +1,87 @@
+{
+  "html.format.enable": true,
+  "html.format.indentHandlebars": true,
+  "window.zoomLevel": 0,
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": "boundary",
+  "search.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/dist": true
+  },
+  "editor.minimap.enabled": false,
+  "extensions.ignoreRecommendations": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "explorer.autoReveal": false,
+  "git.decorations.enabled": false,
+  "explorer.confirmDragAndDrop": false,
+  "diffEditor.ignoreTrimWhitespace": true,
+  "telemetry.enableTelemetry": false,
+  "telemetry.enableCrashReporter": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "explorer.confirmDelete": false,
+  "breadcrumbs.enabled": true,
+  "window.restoreFullscreen": true,
+  "launch": {
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Jest All",
+        "program": "${workspaceFolder}/node_modules/.bin/jest",
+        "args": ["--runInBand"],
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "disableOptimisticBPs": true,
+        "windows": {
+          "program": "${workspaceFolder}/node_modules/jest/bin/jest"
+        },
+        "runtimeExecutable": "${env:HOME}/.bin/node.sh",
+        "cwd": "${fileDirname}"
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Jest Current File",
+        "program": "${workspaceFolder}/node_modules/.bin/jest",
+        "args": ["${relativeFile}", "--runInBand"],
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "disableOptimisticBPs": true,
+        "windows": {
+          "program": "${workspaceFolder}/node_modules/jest/bin/jest"
+        },
+        "runtimeExecutable": "${env:HOME}/.bin/node.sh",
+        "cwd": "${fileDirname}"
+      }
+    ],
+    "compounds": []
+  },
+  "editor.fontSize": 11,
+  "terminal.integrated.macOptionClickForcesSelection": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "terminal.integrated.fontFamily": "DejaVu Sans Mono",
+  "window.titleBarStyle": "custom",
+  "debug.console.fontFamily": "default'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+  "editor.fontFamily": "DejaVu Sans Mono",
+  "terminal.integrated.rendererType": "dom",
+  "terminal.integrated.fontSize": 10,
+  "diffEditor.renderSideBySide": true,
+  "githubPullRequests.logLevel": "debug",
+  "githubPullRequests.defaultMergeMethod": "rebase",
+  "githubPullRequests.telemetry.enabled": false,
+  "githubPullRequests.remotes": [
+    "origin"
+  ]
+}

@@ -4,9 +4,10 @@ CONFIG=`pwd`
 
 mkdir -p ~/.config/i3 ~/.mplayer ~/.mutt
 
-ln -s $CONFIG/.bashrc ~/.bashrc
-ln -s $CONFIG/.gitconfig ~/.gitconfig
-ln -s $CONFIG/.vimrc ~/.vimrc
+ln -s $CONFIG/.bashrc ~
+ln -s $CONFIG/.gitconfig ~
+ln -s $CONFIG/.vimrc ~
+ln -s $CONFIG/.tmux.conf ~
 ln -s $CONFIG/.mplayer/input.conf ~/.mplayer/input.conf
 
 find .config -type d -exec mkdir -p ~/{} \;

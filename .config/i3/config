@@ -153,6 +153,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3blocks -c ~/.config/i3/i3blocks.conf
+        font pango:DejaVu Sans Mono 9
 }
 
 ############################ CUSTOM ####################
@@ -163,6 +164,7 @@ exec --no-startup-id redshift -l 52.056736:1.148220 &
 exec --no-startup-id blueman-applet &
 exec --no-startup-id dunst &
 exec --no-startup-id nm-applet &
+exec --no-startup-id pasystray &
 
 # Add this to ~/.xinitrc
 # systemctl --user import-environment DISPLAY
@@ -173,6 +175,11 @@ exec --no-startup-id nm-applet &
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && pkill -RTMIN+10 i3blocks && notify-send -t 750 -u low "♪ $(~/src/github/i3blocks-contrib/volume/volume)"
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && pkill -RTMIN+10 i3blocks && notify-send -t 750 -u low "♪ $(~/src/github/i3blocks-contrib/volume/volume)"
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+10 i3blocks
+
+bindsym $mod+KP_Add exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && pkill -RTMIN+10 i3blocks && notify-send -t 750 -u low "♪ $(~/src/github/i3blocks-contrib/volume-pulseaudio/volume-pulseaudio -F '${VOL}' | head -n 1) %"
+bindsym $mod+KP_Subtract exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && pkill -RTMIN+10 i3blocks && notify-send -t 750 -u low "♪ $(~/src/github/i3blocks-contrib/volume-pulseaudio/volume-pulseaudio -F '${VOL}' | head -n 1) %"
+bindsym $mod+KP_Multiply exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -RTMIN+10 i3blocks
+bindsym $mod+KP_Divide exec --no-startup-id ~/.bin/switch-pulse-sinks.sh next && pkill -RTMIN+10 i3blocks
 
 # Brightness
 bindsym XF86MonBrightnessUp exec ruby ~/.bin/brightness.rb brighter # increase screen brightness
@@ -211,12 +218,12 @@ bindsym $mod+z workspace prev
 bindsym $mod+x workspace next
 
 # lock pc
-set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id ~/.config/i3/i3exit.sh lock, mode "default"
     bindsym e exec --no-startup-id ~/.config/i3/i3exit.sh logout, mode "default"
     bindsym s exec --no-startup-id ~/.config/i3/i3exit.sh suspend, mode "default"
-    # bindsym h exec --no-startup-id ~/.config/i3/i3exit.sh hibernate, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/i3exit.sh hibernate, mode "default"
     bindsym r exec --no-startup-id ~/.config/i3/i3exit.sh reboot, mode "default"
     bindsym Shift+s exec --no-startup-id ~/.config/i3/i3exit shutdown, mode "default"
 
@@ -227,3 +234,4 @@ mode "$mode_system" {
 bindsym $mod+c mode "$mode_system"
 
 bindsym $mod+s exec passmenu
+for_window [class="(?i)pinentry"] focus; move position mouse; fullscreen enable
