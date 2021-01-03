@@ -1,5 +1,6 @@
 syntax on
 colo desert
+" colo zellner
 
 set ai                  " autoindent
 set si                  " smartindent
@@ -56,15 +57,45 @@ let g:ale_linters = {
 \   'typescript': ['prettier', 'eslint', 'standard', 'tsserver']
 \ }
 let g:ale_fixers = {
-\   'javascript': ['prettier', 'tslint', 'eslint'],
-\   'typescript': ['prettier', 'tslint', 'eslint']
+\   'javascript': ['prettier', 'eslint'],
+\   'typescript': ['prettier', 'eslint']
 \ }
 
 nmap <F6> <Plug>(ale_fix)
 
 " COC config
+
+" Show autocomplete when Ctrl+Space is pressed
 inoremap <silent><expr> <Nul> coc#refresh() 
+
+
+let g:coc_global_extensions = [ 'coc-tsserver' ]
+
+" Add CoC Prettier if prettier is installed
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+" Add CoC ESLint if ESLint is installed
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+" Rename
+nmap <leader>rn <Plug>(coc-rename)
 
 " FZF config
 nnoremap <C-t> :GFiles<CR>
 nnoremap <C-f> :Ag<CR>
+
+" CONFIG
+" \1 to reload vimrc
+nnoremap <silent><leader>ď :source ~/.vimrc \| :PlugInstall<CR>
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
