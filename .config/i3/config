@@ -26,7 +26,7 @@ focus_follows_mouse no
 
 # start a terminal
 bindsym $mod+Shift+Return exec xterm -fa "DejaVu Sans Mono" -fs 10
-bindsym $mod+Return exec xterm -fa "DejaVu Sans Mono" -fs 10 -fg orange -bg black
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -203,13 +203,14 @@ bindsym Shift+Print --release exec scrot -e 'mv $f ~/pictures/screenshots' --sel
 bindsym $mod+b exec --no-startup-id opera
 
 #Second screen
-bindsym $mod+m         exec xrandr --output HDMI2 --off --output eDP1 --auto
-bindsym $mod+shift+m   exec xrandr --output HDMI2 --auto --left-of eDP1 --output eDP1 --auto
-bindsym $mod+n         exec xrandr --output VGA1 --off --output eDP1 --auto
-bindsym $mod+shift+n   exec xrandr --output VGA1 --auto --left-of eDP1 --output eDP1 --auto
+bindsym $mod+m         exec xrandr --output DisplayPort-1 --off
+bindsym $mod+shift+m   exec xrandr --output DisplayPort-1 --auto --left-of HDMI-A-0 --rotate left
+bindsym $mod+n         exec xrandr --output HDMI2 --off --output eDP1 --auto
+bindsym $mod+shift+n   exec xrandr --output HDMI2 --auto --left-of eDP1 --output eDP1 --auto
 
 #VirtualBox
 for_window [title="VirtualBox"] border pixel 1
+for_window [title="Alacritty"] border pixel 1
 
 for_window [instance="skype" title="^.*?(?<!Skype™)$"] floating disable
 for_window [instance="skype" title="Skype™|Call with|File Transfers"] floating disable
@@ -234,5 +235,16 @@ mode "$mode_system" {
 }
 bindsym $mod+c mode "$mode_system"
 
-bindsym $mod+s exec passmenu
+bindsym $mod+s exec rofi-pass
 for_window [class="(?i)pinentry"] focus; move position mouse; fullscreen enable
+
+workspace 1 output HDMI-A-0
+workspace 2 output HDMI-A-0
+workspace 3 output HDMI-A-0
+workspace 4 output HDMI-A-0
+workspace 5 output DisplayPort-1
+workspace 6 output DisplayPort-1
+workspace 7 output DisplayPort-1
+workspace 8 output DisplayPort-1
+workspace 9 output DisplayPort-1
+workspace 10 output DisplayPort-1

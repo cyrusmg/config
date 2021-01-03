@@ -81,7 +81,17 @@
   "githubPullRequests.logLevel": "debug",
   "githubPullRequests.defaultMergeMethod": "rebase",
   "githubPullRequests.telemetry.enabled": false,
-  "githubPullRequests.remotes": [
-    "origin"
-  ]
+  "githubPullRequests.remotes": ["origin"],
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "nginx-conf-hint.syntax": "sublime",
+  "gitlens.currentLine.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.codeLens.enabled": false,
+  "gitlens.views.fileHistory.location": "scm"
 }

@@ -33,22 +33,38 @@ filetype plugin on " enable plugins
 
 hi Search cterm=NONE ctermfg=black ctermbg=yellow
 
+" Plug extension - autoload
+" :PlugInstall to install plugins.
+" :CocInstall coc-tsserver coc-json
+set nocompatible
+call plug#begin('~/.vim/plugged')
 
-function! Chomp(str)
-  return substitute(a:str, '\n$', '', '')
-endfunction
+" Syntax Highlighter
+Plug 'sheerun/vim-polyglot'
+" Eslint Integration
+Plug 'dense-analysis/ale'
+" Intellisense
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" File search
+Plug 'junegunn/fzf.vim'
 
-function! DmenuOpen(cmd)
-  let fname = Chomp(system("git ls-files | dmenu -i -l 20 -p " . a:cmd))
-  if empty(fname)
-    return
-  endif
-  execute a:cmd . " " . fname
-endfunction
+call plug#end()
 
-" use ctrl-t to open file in a new tab
-" use ctrl-f to open file in current buffer
-map <c-t> :call DmenuOpen("tabe")<cr>
-map <c-f> :call DmenuOpen("e")<cr>
+" ALE config
+let g:ale_linters = {
+\   'javascript': ['prettier', 'eslint', 'standard', 'tsserver'],
+\   'typescript': ['prettier', 'eslint', 'standard', 'tsserver']
+\ }
+let g:ale_fixers = {
+\   'javascript': ['prettier', 'tslint', 'eslint'],
+\   'typescript': ['prettier', 'tslint', 'eslint']
+\ }
 
-" execute pathogen#infect()
+nmap <F6> <Plug>(ale_fix)
+
+" COC config
+inoremap <silent><expr> <Nul> coc#refresh() 
+
+" FZF config
+nnoremap <C-t> :GFiles<CR>
+nnoremap <C-f> :Ag<CR>

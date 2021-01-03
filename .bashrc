@@ -15,11 +15,15 @@ fi
 
 export SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock
 
+source /usr/share/nvm/init-nvm.sh
+test -f /usr/share/nvm/init-nvm.sh || echo Run: yaourt -S nvm
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 
 [[ $TERM == xterm-termite ]] && export TERM=xterm
+# [[ $TERM == alacritty ]] && export TERM=xterm
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
@@ -38,6 +42,7 @@ alias hist='history | grep'         # requires an argument
 alias serve='python3 -m http.server'
 alias wifi-status='nmcli dev wifi'
 alias code-pr='code --enable-proposed-api GitHub.vscode-pull-request-github' # run VS Code with PR feature enabled
+alias feh='feh --auto-rotate'
 
 if (( UID != 0 )); then
   alias sudo='sudo '
@@ -79,6 +84,7 @@ alias mongoexport='echo "Connecting to docker..." && in-mongo-docker mongoexport
 alias mongoimport='echo "Connecting to docker..." && in-mongo-docker mongoimport'
 alias bsondump='echo "Connecting to docker..." && in-mongo-docker bsondump'
 alias p='pm2'
+alias tt='node ~/src/teletext/index.js'
 
 alias monitor-above='xrandr --output HDMI2 --auto --above eDP1'
 alias monitor-right='xrandr --output HDMI2 --auto --right-of eDP1'
@@ -128,9 +134,6 @@ export GPG_TTY
 
 # Refresh gpg-agent tty in case user switches into an X session
 gpg-connect-agent updatestartuptty /bye >/dev/null
-
-source /usr/share/nvm/init-nvm.sh
-test -f /usr/share/nvm/init-nvm.sh || echo Run: yaourt -S nvm
 
 source /usr/share/bash-completion/bash_completion
 test -f /usr/share/bash-completion/bash_completion || echo Run: pacman -S bash-completion

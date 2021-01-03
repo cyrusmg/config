@@ -1,6 +1,31 @@
 #!/bin/sh
 lock() {
-  i3lock -t -i ~/pictures/backgrounds/gandia_playa.png
+  if [[ "$HOSTNAME" =~ "desk" ]]
+  then
+    i3lock -t -i ~/pictures/backgrounds/random-background.png
+
+    export filename=$(find ~/pictures -iname "*.jpg" | shuf -n1)
+    convert "$filename" \
+      -auto-orient \
+      -thumbnail 3840x2160 \
+      -append \
+      -background white \
+      -size x20 \
+      -fill black \
+      -gravity south \
+      label:"$filename" \
+      -gravity southwest \
+      -compose over -composite \
+      -gravity center \
+      -background black \
+      -extent 3840x2160 \
+      -gravity east \
+      -background black \
+      -extent 4920x2160 \
+      ~/pictures/backgrounds/random-background.png
+  else
+    i3lock -t -i ~/pictures/backgrounds/gandia_playa.png
+  fi
 }
 
 case "$1" in

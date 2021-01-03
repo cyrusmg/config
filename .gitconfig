@@ -1,8 +1,8 @@
 [user]
 	name = Jirka Kulovany
-	email = jirka@kulovany.net
+	email = jirka@paperpile.com
 [push]
-        default = simple
+	default = simple
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
