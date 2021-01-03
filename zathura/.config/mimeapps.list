@@ -1,2 +1,9 @@
 [Default Applications]
-application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
+x-scheme-handler/postman=Postman.desktop
+application/pdf=zathura.desktop
+
+[Added Associations]
+application/octet-stream=code-oss.desktop;
+text/csv=libreoffice-calc.desktop;
+text/x-bibtex=code-oss.desktop;
+text/plain=code-oss.desktop;
