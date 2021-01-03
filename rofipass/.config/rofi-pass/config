@@ -1,0 +1,8 @@
+default_do='copyPass' # menu, autotype, copyPass, typeUser, typePass, copyUser, copyUrl, viewEntry, typeMenu, actionMenu, copyMenu, openUrl
+
+# Clipboard settings
+# Possible options: primary, clipboard, both
+clip=both
+
+# Seconds before clearing pass from clipboard 
+clip_clear=45
