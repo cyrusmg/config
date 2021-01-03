@@ -1,7 +1,7 @@
 {
   "html.format.enable": true,
   "html.format.indentHandlebars": true,
-  "window.zoomLevel": 0,
+  "window.zoomLevel": 3,
   "editor.tabSize": 2,
   "editor.renderWhitespace": "boundary",
   "search.exclude": {
