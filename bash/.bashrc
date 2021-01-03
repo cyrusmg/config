@@ -15,8 +15,9 @@ fi
 
 export SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock
 
-source /usr/share/nvm/init-nvm.sh
-test -f /usr/share/nvm/init-nvm.sh || echo Run: yaourt -S nvm
+if [ -f "/usr/share/nvm/init-nvm.sh" ]; then
+  source /usr/share/nvm/init-nvm.sh
+fi
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -135,5 +136,18 @@ export GPG_TTY
 # Refresh gpg-agent tty in case user switches into an X session
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
-source /usr/share/bash-completion/bash_completion
-test -f /usr/share/bash-completion/bash_completion || echo Run: pacman -S bash-completion
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+  source /usr/share/bash-completion/bash_completion
+fi
+
+if [ -x "$(command -v crond)" ]; then
+  pkill crond || true
+  crond
+fi
+
+alias wake_pc="wol 70:85:c2:f0:b7:f4"
+alias pg='pass|grep'
+alias rn='node ~/src/reddit-reader/index.js digitalnomad'
+alias ro='node ~/src/reddit-reader/index.js onebag'
+
+# unset LD_PRELOAD

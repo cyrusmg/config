@@ -1,5 +1,6 @@
 syntax on
 colo desert
+autocmd ColorScheme * highlight Pmenu ctermbg=black
 " colo zellner
 
 set ai                  " autoindent
@@ -47,6 +48,7 @@ Plug 'dense-analysis/ale'
 " Intellisense
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " File search
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 call plug#end()
